@@ -1,65 +1,85 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import "./Main.css"
-import { Link } from 'react-router-dom';
-import HomeIcon from '@material-ui/icons/Home';
+import React from "react";
+import {
+    AppBar,
+    Toolbar,
+    CssBaseline,
+    Typography,
+    makeStyles,
+    useTheme,
+    useMediaQuery, Grid,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import DrawerComponent from "./DrawerComponent";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
+    navlinks: {
+        marginLeft: theme.spacing(5),
+        display: "flex",
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
+    logo: {
+        flexGrow: "1",
+        cursor: "pointer",
     },
-    title: {
-      flexGrow: 1,
+    link: {
+        textDecoration: "none",
+        color: "white",
+        fontSize: "20px",
+        marginLeft: "40px",
+        "&:hover": {
+            color: "yellow",
+            borderBottom: "1px solid white",
+        },
     },
-  
-   
-  }));
+}));
 
-export default function NavBar() {
+function Navbar() {
     const classes = useStyles();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
     return (
-        <div>
-            <AppBar position="static" style={{backgroundColor:"#035397"}}>
-                <Toolbar>
-                <h3 style={{marginLeft:"30px"}}>SP</h3>
-                <Typography variant="h7" className={classes.title}>
-                
-                <ul id="navdetails">
-                    <Link style={{color: 'rgb(215 220 220)',textDecoration: 'none'}} to='/'>
-                      <li>Home</li>
-                    </Link>
-                    <Link style={{color: 'rgb(215 220 220)',textDecoration: 'none'}} to='/customer'>
-                      <li>Customer</li>
-                    </Link>
-                    <Link style={{color: 'rgb(215 220 220)',textDecoration: 'none'}} to='/item'>
-                      <li>Item</li>
-                    </Link>
-                    <Link style={{color: 'rgb(215 220 220)',textDecoration: 'none'}} to='/order'>
-                      <li>Order</li>
-                    </Link>
-              
-                </ul>
-                </Typography>
-                <Typography variant="h7" >
-                    <ul id="log">
-                        <Link style={{color: 'rgb(215 220 220)',textDecoration: 'none'}} to='/signup'>
-                          <li>Sign Up</li>
-                        </Link>
-                        <Link style={{color: 'rgb(215 220 220)',textDecoration: 'none'}} to='/login'>
-                          <li>Login</li>
-                        </Link>
-                        
-                    </ul>
-                </Typography>
-                
-                </Toolbar>
-            </AppBar>
-        </div>
-    )
+        <AppBar position="static">
+            <CssBaseline />
+            <Toolbar>
+                <Grid container={3}>
+                    <Grid xs={11} sm={11} md={8} lg={8} xl={9}>
+                        <Typography variant="h4" className={classes.logo}>
+                            Navbar
+                        </Typography>
+                    </Grid>
+                    <Grid xs={1} sm={1} md={4} lg={4} xl={3}>
+
+                        {isMobile ? (
+                            <DrawerComponent style={{right:0}} />
+                        ) : (
+                            <div className={classes.navlinks}>
+
+                            <Link to="/" className={classes.link}>
+                                Home
+                            </Link>
+
+
+                            <Link to="/customer" className={classes.link}>
+                                Customer
+                            </Link>
+
+
+                            <Link to="/item" className={classes.link}>
+                                Item
+                            </Link>
+
+                            <Link to="/login" className={classes.link}>
+                                Login
+                            </Link>
+                            </div>
+                        )}
+
+                        </Grid>
+                </Grid>
+
+
+            </Toolbar>
+        </AppBar>
+    );
 }
+export default Navbar;
