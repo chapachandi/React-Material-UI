@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import {  makeStyles } from '@material-ui/core/styles';
 import "./Main.css"
 import Button from '@material-ui/core/Button';
 import NavBar from './NavBar';
